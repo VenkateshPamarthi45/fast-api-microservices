@@ -1,8 +1,14 @@
-from fastapi import APIRouter
+from pprint import pprint
+
+from fastapi import APIRouter, Depends
+from fastapi.encoders import jsonable_encoder
+from starlette import status
+from starlette.exceptions import HTTPException
+from starlette.responses import JSONResponse
 
 from handlers.custom_exceptions import ProductNotFoundException
 from products.models.requests import ProductRequest
-from products.models.responses import ProductResponse
+from products.service.factory import get_product_service
 
 router = APIRouter()
 
@@ -10,25 +16,18 @@ products = {}
 
 
 @router.get("/{product_id}")
-def get_product(product_id: str):
-    if products.get(product_id) is None:
+def get_product(product_id: str, handler=Depends(get_product_service)):
+    product = handler.get_product_detail(product_id)
+    if isinstance(product, str):
         raise ProductNotFoundException()
     else:
-        return products.get(product_id)
+        return JSONResponse(status_code=status.HTTP_200_OK, content=jsonable_encoder(product))
 
 
 @router.post("")
-def create_product(product: ProductRequest):
-    if len(product.name) == 0:
-        return "Name is empty"
-    elif len(product.description) == 0:
-        return "description is empty"
-    elif product.price <= 0:
-        return "Price is less than equal to 0"
+def create_product(product: ProductRequest, handler=Depends(get_product_service)):
+    product = handler.new_product(product)
+    if isinstance(product, str):
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST,detail=product)
     else:
-        new_product_id = str(len(products.keys()) + 1)
-        product_response = ProductResponse(product_id=new_product_id, name=product.name,
-                                           description=product.description,
-                                           price=product.price)
-        products[new_product_id] = product_response
-        return product_response
+        return JSONResponse(status_code=status.HTTP_200_OK, content=jsonable_encoder(product))
