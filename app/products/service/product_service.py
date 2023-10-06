@@ -1,9 +1,8 @@
 from fastapi import Depends
-from fastapi.encoders import jsonable_encoder
 
-from products.models.requests import ProductRequest
-from products.models.responses import ProductResponse
-from products.repository.factory import get_product_repo
+from app.products.models.requests import ProductRequest
+from app.products.models.responses import ProductResponse
+from app.products.repository.factory import get_product_repo
 
 
 class ProductService:

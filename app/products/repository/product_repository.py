@@ -1,4 +1,4 @@
-from products.data.product import Product
+from app.products.data.product import Product
 
 
 class ProductRepository:

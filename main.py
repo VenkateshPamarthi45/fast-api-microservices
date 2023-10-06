@@ -1,8 +1,9 @@
-from fastapi import FastAPI, Request, status, HTTPException
+from fastapi import FastAPI, Request
 
-from handlers.custom_exceptions import ProductNotFoundException
+from app.products import products
+from app.handlers.custom_exceptions import ProductNotFoundException
 from fastapi.responses import JSONResponse
-from products import products
+
 
 app = FastAPI()
 app.include_router(products.router, prefix="/v1/products")

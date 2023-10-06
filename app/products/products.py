@@ -1,14 +1,12 @@
-from pprint import pprint
-
 from fastapi import APIRouter, Depends
 from fastapi.encoders import jsonable_encoder
 from starlette import status
 from starlette.exceptions import HTTPException
 from starlette.responses import JSONResponse
 
-from handlers.custom_exceptions import ProductNotFoundException
-from products.models.requests import ProductRequest
-from products.service.factory import get_product_service
+from app.handlers.custom_exceptions import ProductNotFoundException
+from app.products.models.requests import ProductRequest
+from app.products.service.factory import get_product_service
 
 router = APIRouter()
 
