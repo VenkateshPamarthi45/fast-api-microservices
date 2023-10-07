@@ -2,7 +2,6 @@ from fastapi import Depends
 
 from app.products.models.requests import ProductRequest
 from app.products.models.responses import ProductResponse
-from app.products.repository.factory import get_product_repo
 from app.products.repository.product_repository import ProductRepository
 
 
@@ -10,11 +9,11 @@ class ProductService:
     def __init__(self, repo=Depends(ProductRepository)):
         self.repo = repo
 
-    def get_product_detail(self, id):
-        if id is None:
+    def get_product_detail(self, product_id):
+        if product_id is None:
             return "Id is empty"
         else:
-            product = self.repo.get_product(id)
+            product = self.repo.get_product(product_id)
             if isinstance(product, str):
                 return product
             else:

@@ -42,7 +42,7 @@ class ProductRouterTestCase(unittest.TestCase):
 
     def test_get_product_no_product(self):
         thing = ProductService()
-        thing.get_product_detail = MagicMock(return_value=ProductResponse)
+        thing.get_product_detail = MagicMock(return_value="ss")
         response = client.get("/v1/products/1")
         assert response.status_code == 404
         assert response.json() == {'message': 'error: Product Not found'}

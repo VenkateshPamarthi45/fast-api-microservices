@@ -1,4 +1,7 @@
-from fastapi import FastAPI, Request
+from pprint import pprint
+
+from fastapi import FastAPI
+from starlette.requests import Request
 
 from app.products import products
 from app.handlers.custom_exceptions import ProductNotFoundException
@@ -11,6 +14,7 @@ app.include_router(products.router, prefix="/v1/products")
 
 @app.exception_handler(ProductNotFoundException)
 def product_not_found_exception_handler(req: Request, ex: ProductNotFoundException):
+    pprint(req)
     return JSONResponse(
         status_code=ex.status_code,
         content={"message": f"error: {ex.message}"}

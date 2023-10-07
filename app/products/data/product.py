@@ -1,6 +1,3 @@
-from uuid import UUID
-
-
 class Product:
     id: str
     name: str
