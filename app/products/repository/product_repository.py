@@ -6,7 +6,9 @@ class ProductRepository:
 
     def create_product(self, name: str, description: str, price: int):
         new_product_id = str(len(self.products.keys()) + 1)
-        product = Product(uuid=new_product_id, name=name, description=description, price=price)
+        product = Product(
+            uuid=new_product_id, name=name, description=description, price=price
+        )
         self.products[new_product_id] = product
         return product
 
@@ -18,4 +20,3 @@ class ProductRepository:
             return self.products[product_id]
         else:
             return "No product found"
-

@@ -20,13 +20,17 @@ def get_product(product_id: str, handler=Depends(ProductService)):
     if isinstance(product, str):
         raise ProductNotFoundException()
     else:
-        return JSONResponse(status_code=status.HTTP_200_OK, content=jsonable_encoder(product))
+        return JSONResponse(
+            status_code=status.HTTP_200_OK, content=jsonable_encoder(product)
+        )
 
 
 @router.post("")
 def create_product(product: ProductRequest, handler=Depends(get_product_service)):
     product = handler.new_product(product)
     if isinstance(product, str):
-        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST,detail=product)
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=product)
     else:
-        return JSONResponse(status_code=status.HTTP_200_OK, content=jsonable_encoder(product))
+        return JSONResponse(
+            status_code=status.HTTP_200_OK, content=jsonable_encoder(product)
+        )

@@ -3,7 +3,7 @@ install:
 	pip install -r requirements.txt
 format:
 	#format files
-	black *.py products
+	black app/products
 lint:
 	#lint files
 build:

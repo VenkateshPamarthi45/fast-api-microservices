@@ -5,4 +5,3 @@ class ProductRequest(BaseModel):
     name: str
     description: str
     price: int
-

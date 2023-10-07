@@ -1,5 +1,3 @@
-
-
 class ProductResponse:
     id: str
     name: str
