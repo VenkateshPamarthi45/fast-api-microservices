@@ -3,10 +3,11 @@ from fastapi import Depends
 from app.products.models.requests import ProductRequest
 from app.products.models.responses import ProductResponse
 from app.products.repository.factory import get_product_repo
+from app.products.repository.product_repository import ProductRepository
 
 
 class ProductService:
-    def __init__(self, repo=Depends(get_product_repo)):
+    def __init__(self, repo=Depends(ProductRepository)):
         self.repo = repo
 
     def get_product_detail(self, id):
@@ -24,7 +25,7 @@ class ProductService:
         if len(product_request.name) == 0:
             return "Name is empty"
         elif len(product_request.description) == 0:
-            return "description is empty"
+            return "Description is empty"
         elif product_request.price <= 0:
             return "Price is less than equal to 0"
         else:

@@ -7,6 +7,7 @@ from starlette.responses import JSONResponse
 from app.handlers.custom_exceptions import ProductNotFoundException
 from app.products.models.requests import ProductRequest
 from app.products.service.factory import get_product_service
+from app.products.service.product_service import ProductService
 
 router = APIRouter()
 
@@ -14,7 +15,7 @@ products = {}
 
 
 @router.get("/{product_id}")
-def get_product(product_id: str, handler=Depends(get_product_service)):
+def get_product(product_id: str, handler=Depends(ProductService)):
     product = handler.get_product_detail(product_id)
     if isinstance(product, str):
         raise ProductNotFoundException()
