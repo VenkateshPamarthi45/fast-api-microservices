@@ -1,5 +1,6 @@
 install:
 	#install commands
+	pip install -r requirements.txt
 format:
 	#format files
 	black *.py products
