@@ -1,6 +1,7 @@
 install:
 	#install commands
-	pip install -r requirements.txt
+	pip install --upgrade pip &&\
+		pip install -r requirements.txt
 format:
 	#format files
 	black app/products
